@@ -4,6 +4,7 @@ import argparse
 import numpy as np
 import argparse
 
+
 ap = argparse.ArgumentParser()
 ap.add_argument("-v", "--video",
 	help="path to the (optional) video file")
@@ -12,7 +13,7 @@ ap.add_argument("-b", "--buffer", type=int, default=64,
 args = vars(ap.parse_args())
 
 cap=cv2.VideoCapture(args["video"])
-#cap = cv2.VideoCapture("E:\cv_stuff\Ball Detection and  Tracing\ball_tracking_example.mp4")
+#cap = cv2.VideoCapture("E:\cv_stuff\Ball Detection and  Tracing\Ball Detection\ball.mp4")
 #cap=cv2.VideoCapture(0)
 w=cap.get(3)
 h=cap.get(4)
@@ -23,6 +24,8 @@ print("{}    {}".format(w,h))
 
 if (cap.isOpened()==False):
     print("Error opening video file")
+
+out = cv2.VideoWriter('outpy.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 10, (w,h))
 
 while(cap.isOpened()):
     
@@ -88,6 +91,7 @@ while(cap.isOpened()):
         cv2.circle(frame, center,5,(0,255,0),-1) #center of ball
         cv2.circle(frame, center,radius,(0,255,0),2) # ball
         cv2.imshow("ball",frame)
+        out.write(frame)
 #        cv2.drawContours(output, cnts, -1, (0,255,0),3)
 #        cv2.imshow("output",output)
 
